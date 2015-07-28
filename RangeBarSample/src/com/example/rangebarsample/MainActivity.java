@@ -4,6 +4,7 @@ package com.example.rangebarsample;
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.Menu;
 import android.view.View;
@@ -129,7 +130,7 @@ public class MainActivity extends Activity implements ColorPickerDialog.OnColorC
         rangebar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
             @Override
             public void onIndexChangeListener(RangeBar rangeBar, int leftThumbIndex, int rightThumbIndex) {
-
+                Log.i(MainActivity.class.getName(), "right: " +rightThumbIndex + " left:" + leftThumbIndex) ;
                 leftIndexValue.setText("" + leftThumbIndex);
                 rightIndexValue.setText("" + rightThumbIndex);
             }

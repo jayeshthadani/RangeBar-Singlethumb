@@ -23,6 +23,7 @@
             android:text="@string/title"
             android:textSize="40sp" />
 
+        <!-- orientation value in integer, 0 horizontal and 1 vertical -->
         <com.edmodo.rangebar.RangeBar
             xmlns:custom="http://schemas.android.com/apk/res-auto"
             android:id="@+id/rangebar1"
@@ -30,6 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="50dp"
             android:layout_marginTop="50dp"
+            custom:tickHeight="10dp"
             custom:tickCount="7" />
 
         <LinearLayout

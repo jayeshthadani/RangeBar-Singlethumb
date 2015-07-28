@@ -22,7 +22,7 @@ import android.graphics.Paint;
 import android.util.TypedValue;
 
 /**
- * Represents a thumb in the RangeBar slider. This is the handle for the slider
+ * Representds a thumb in the RangeBar slier. This is the handle for the slider
  * that is pressed and slid.
  */
 class Thumb {
