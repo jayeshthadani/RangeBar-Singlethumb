@@ -660,6 +660,11 @@ public class VerticalRangeBar  extends View  {
         createBar();
     }
 
+    /**
+     * sets tick mark steps in Vertical Range bar.
+     *
+     * @param tickMarkStep int for specifying tickMark steps between two ticks.
+     */
     public void setTickMarkStep(int tickMarkStep){
         mTickMarkStep = tickMarkStep;
         createBar();
