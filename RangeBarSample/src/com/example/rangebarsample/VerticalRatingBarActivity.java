@@ -3,6 +3,7 @@ package com.example.rangebarsample;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.Window;
 
@@ -64,6 +65,15 @@ public class VerticalRatingBarActivity extends Activity {
         verticalRangeBar.setTickMarkStep(1);
 
         verticalRangeBar.setBarColor(this.getResources().getColor(R.color.seekbar_progress_color));
+
+        // Sets the display values of the indices
+        verticalRangeBar.setOnRangeBarChangeListener(new VerticalRangeBar.OnRangeBarChangeListener() {
+            @Override
+            public void onIndexChangeListener(VerticalRangeBar v, int leftThumbIndex, int rightThumbIndex) {
+                Log.i(VerticalRatingBarActivity.class.getName(), "right: " + rightThumbIndex + " left:" + leftThumbIndex) ;
+            }
+        });
+
     }
 
     @Override

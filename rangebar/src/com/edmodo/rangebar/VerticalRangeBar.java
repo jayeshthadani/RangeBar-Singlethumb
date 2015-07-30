@@ -375,12 +375,12 @@ public class VerticalRangeBar  extends View  {
             // Get the updated nearest tick marks for each thumb.
             //final int newLeftIndex = mVerticalBar.getNearestTickIndex(mLeftThumb);
             final int newRightIndex = mVerticalBar.getNearestTickIndex(mRightThumb);
-
+            Log.i(VerticalRangeBar.class.getName(), "newRightIndex: " + newRightIndex);
             // If either of the indices have changed, update and call the listener.
             if (newRightIndex != mRightIndex) {
 
                 //mLeftIndex = newLeftIndex;
-                mRightIndex = newRightIndex;
+                mRightIndex = mTickCount - 1 - newRightIndex;
 
                 if (mListener != null) {
                     mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
@@ -441,7 +441,7 @@ public class VerticalRangeBar  extends View  {
         if (newRightIndex != mRightIndex) {
 
             //mLeftIndex = newLeftIndex;
-            mRightIndex = newRightIndex;
+            mRightIndex = mTickCount - 1 - newRightIndex ;
 
             if (mListener != null) {
                 mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
@@ -501,11 +501,10 @@ public class VerticalRangeBar  extends View  {
      * Sets the location of each thumb according to the developer's choice.
      * Numbered from 0 to mTickCount - 1 from the left.
      *
-     * @param leftThumbIndex Integer specifying the index of the left thumb
+     * @param leftThumbIndex  Integer specifying the index of the left thumb
      * @param rightThumbIndex Integer specifying the index of the right thumb
      */
-    public void setThumbIndices(int leftThumbIndex, int rightThumbIndex)
-    {
+    public void setThumbIndices(int leftThumbIndex, int rightThumbIndex) {
         if (indexOutOfRange(leftThumbIndex, rightThumbIndex)) {
 
             Log.e(TAG, "A thumb index is out of bounds. Check that it is between 0 and mTickCount - 1");
