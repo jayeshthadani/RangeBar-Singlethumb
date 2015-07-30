@@ -1,0 +1,20 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@android:color/white">
+
+    <com.edmodo.rangebar.VerticalRangeBar
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:custom="http://schemas.android.com/apk/res-auto"
+        android:layout_marginTop="10dp"
+        android:id="@+id/verticalRangeBar"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        custom:tickCount="11"
+        custom:tickHeight="0dp"
+        android:layout_marginStart="10dp"
+        android:layout_marginBottom="10dp"/>
+
+</LinearLayout>

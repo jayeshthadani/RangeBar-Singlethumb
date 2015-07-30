@@ -62,7 +62,7 @@ class Thumb {
     private boolean mIsPressed = false;
 
     // The y-position of the thumb in the parent view. This should not change.
-    private final float mY;
+    private float mY;
 
     // The current x-position of the thumb in the parent view.
     private float mX;
@@ -168,8 +168,14 @@ class Thumb {
         mX = x;
     }
 
+    void setY(float y) { mY = y; }
+
     float getX() {
         return mX;
+    }
+
+    float getY(){
+        return mY;
     }
 
     boolean isPressed() {
@@ -201,6 +207,9 @@ class Thumb {
         return false;
     }
 
+    boolean verticalIsInTargetZone(){
+        return true;
+    }
     /**
      * Draws this thumb on the provided canvas.
      * 

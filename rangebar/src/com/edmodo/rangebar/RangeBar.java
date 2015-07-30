@@ -49,6 +49,7 @@ public class RangeBar extends View {
     private static final float DEFAULT_CONNECTING_LINE_WEIGHT_PX = 4;
     private static final int DEFAULT_THUMB_IMAGE_NORMAL = R.drawable.seek_thumb_normal;
     private static final int DEFAULT_THUMB_IMAGE_PRESSED = R.drawable.seek_thumb_pressed;
+    private static final int DEFAULT_BAR_ORIENTATION = 0;
     // O FOR HORIZONTAL, 1 FOR VERTICAL
 
     // Corresponds to android.R.color.holo_blue_light.
@@ -72,6 +73,7 @@ public class RangeBar extends View {
     private float mThumbRadiusDP = DEFAULT_THUMB_RADIUS_DP;
     private int mThumbColorNormal = DEFAULT_THUMB_COLOR_NORMAL;
     private int mThumbColorPressed = DEFAULT_THUMB_COLOR_PRESSED;
+    private int mOrientation = DEFAULT_TICK_COUNT;
 
     // setTickCount only resets indices before a thumb has been pressed or a
     // setThumbIndices() is called, to correspond with intended usage
@@ -178,13 +180,17 @@ public class RangeBar extends View {
         int width;
         int height;
 
+
         // Get measureSpec mode and size values.
         final int measureWidthMode = MeasureSpec.getMode(widthMeasureSpec);
         final int measureHeightMode = MeasureSpec.getMode(heightMeasureSpec);
         final int measureWidth = MeasureSpec.getSize(widthMeasureSpec);
         final int measureHeight = MeasureSpec.getSize(heightMeasureSpec);
 
+        Log.i(RangeBar.class.getName(), "onMeasure: "+ measureWidth + " x " + measureHeight);
         // The RangeBar width should be as large as possible.
+
+        // width should be max, height should be min
         if (measureWidthMode == MeasureSpec.AT_MOST) {
             width = measureWidth;
         } else if (measureWidthMode == MeasureSpec.EXACTLY) {
@@ -201,8 +207,9 @@ public class RangeBar extends View {
         } else {
             height = mDefaultHeight;
         }
-
+        Log.i(RangeBar.class.getName(), "Horizonatal onMeasure calculation: "+ width + " x " + height);
         setMeasuredDimension(width, height);
+
     }
 
     @Override
@@ -210,26 +217,28 @@ public class RangeBar extends View {
 
         super.onSizeChanged(w, h, oldw, oldh);
 
+        Log.i(RangeBar.class.getName(), "onSizeChanged");
         final Context ctx = getContext();
 
         // This is the initial point at which we know the size of the View.
-
         // Create the two thumb objects.
+
         final float yPos = h / 2f;
         mLeftThumb = new Thumb(ctx,
-                               yPos,
-                               mThumbColorNormal,
-                               mThumbColorPressed,
-                               mThumbRadiusDP,
-                               mThumbImageNormal,
-                               mThumbImagePressed);
+                yPos,
+                mThumbColorNormal,
+                mThumbColorPressed,
+                mThumbRadiusDP,
+                mThumbImageNormal,
+                mThumbImagePressed);
         mRightThumb = new Thumb(ctx,
-                                yPos,
-                                mThumbColorNormal,
-                                mThumbColorPressed,
-                                mThumbRadiusDP,
-                                mThumbImageNormal,
-                                mThumbImagePressed);
+                yPos,
+                mThumbColorNormal,
+                mThumbColorPressed,
+                mThumbRadiusDP,
+                mThumbImageNormal,
+                mThumbImagePressed);
+
 
         // Create the underlying bar.
         final float marginLeft = mRightThumb.getHalfWidth();
@@ -273,6 +282,7 @@ public class RangeBar extends View {
     protected void onDraw(Canvas canvas) {
 
         super.onDraw(canvas);
+        Log.i(RangeBar.class.getName(), "onDraw");
         mBar.draw(canvas);
 
         if (isFirstTouchEvent()){
@@ -438,7 +448,7 @@ public class RangeBar extends View {
     /**
      * Sets the normal thumb picture by taking in a reference ID to an image.
      * 
-     * @param thumbNormalID Integer specifying the resource ID of the image to
+     * @param thumbImageNormalID Integer specifying the resource ID of the image to
      *            be drawn as the normal thumb.
      */
     public void setThumbImageNormal(int thumbImageNormalID) {
@@ -449,7 +459,7 @@ public class RangeBar extends View {
     /**
      * Sets the pressed thumb picture by taking in a reference ID to an image.
      * 
-     * @param pressedThumbID Integer specifying the resource ID of the image to
+     * @param thumbImagePressedID Integer specifying the resource ID of the image to
      *            be drawn as the pressed thumb.
      */
     public void setThumbImagePressed(int thumbImagePressedID)
@@ -553,6 +563,7 @@ public class RangeBar extends View {
             // Sets the values of the user-defined attributes based on the XML
             // attributes.
             final Integer tickCount = ta.getInteger(R.styleable.RangeBar_tickCount, DEFAULT_TICK_COUNT);
+            mOrientation = ta.getInteger(R.styleable.RangeBar_orientation, DEFAULT_BAR_ORIENTATION);
             if (isValidTickCount(tickCount)) {
 
                 // Similar functions performed above in setTickCount; make sure
@@ -596,10 +607,9 @@ public class RangeBar extends View {
     /**
      * Creates a new mBar
      * 
-     * @param none
      */
     private void createBar() {
-
+        Log.i(RangeBar.class.getName(), "createBar called.");
         mBar = new Bar(getContext(),
                        getMarginLeft(),
                        getYPos(),
@@ -608,13 +618,13 @@ public class RangeBar extends View {
                        mTickHeightDP,
                        mBarWeight,
                        mBarColor);
+
         invalidate();
     }
 
     /**
      * Creates a new ConnectingLine.
      * 
-     * @param none
      */
     private void createConnectingLine() {
 
@@ -628,7 +638,6 @@ public class RangeBar extends View {
     /**
      * Creates two new Thumbs.
      * 
-     * @param none
      */
     private void createThumbs() {
 
@@ -663,7 +672,6 @@ public class RangeBar extends View {
     /**
      * Get marginLeft in each of the public attribute methods.
      * 
-     * @param none
      * @return float marginLeft
      */
     private float getMarginLeft() {
@@ -673,7 +681,6 @@ public class RangeBar extends View {
     /**
      * Get yPos in each of the public attribute methods.
      * 
-     * @param none
      * @return float yPos
      */
     private float getYPos() {
@@ -683,7 +690,6 @@ public class RangeBar extends View {
     /**
      * Get barLength in each of the public attribute methods.
      * 
-     * @param none
      * @return float barLength
      */
     private float getBarLength() {
