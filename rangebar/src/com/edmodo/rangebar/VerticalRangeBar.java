@@ -278,13 +278,16 @@ public class VerticalRangeBar  extends View  {
                 mThumbImagePressed);
 
         // Create the underlying bar.
-        final float marginBottom = mRightThumb.getHalfWidth();
-        final float barLength = h - 2 * marginBottom;
+        final float marginBottom = getMarginBottom();
+        final float barLength = getBarLength();
         mVerticalBar = new VerticalBar(ctx, marginBottom, xPos, barLength, mTickCount, mTickHeightDP, mBarWeight, mBarColor, mTickMarkStep);
 
         // Initialize thumbs to the desired indices
         mLeftThumb.setY(marginBottom + barLength);
-        mRightThumb.setY(marginBottom + barLength);
+
+
+        //mRightThumb.setY(marginBottom + barLength);
+        mRightThumb.setY(marginBottom + barLength - (mRightIndex / (float) (mTickCount - 1)) * barLength);
 
         // Create the line connecting the two thumbs.
         mConnectingLine = new VerticalConnectingLine(ctx, marginBottom, mConnectingLineWeight, mConnectingLineColor);
@@ -550,13 +553,13 @@ public class VerticalRangeBar  extends View  {
                 mThumbImageNormal,
                 mThumbImagePressed);
 
-        final float marginBottom = mRightThumb.getHalfWidth();
-        final float barLength = getHeight() - 2 * marginBottom;
+        final float marginBottom = getMarginBottom();
+        final float barLength = getBarLength();
 
         // Initialize thumbs to the desired indices
         //mLeftThumb.setX(marginLeft + (mLeftIndex / (float) (mTickCount - 1)) * barLength);
-        mRightThumb.setY(marginBottom + barLength);
 
+        mRightThumb.setY(marginBottom + barLength - (mRightIndex / (float) (mTickCount - 1)) * barLength);
         invalidate();
     }
 

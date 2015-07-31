@@ -5,7 +5,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.edmodo.rangebar.RangeBar;
 import com.edmodo.rangebar.VerticalRangeBar;
@@ -73,6 +76,37 @@ public class VerticalRatingBarActivity extends Activity {
                 Log.i(VerticalRatingBarActivity.class.getName(), "right: " + rightThumbIndex + " left:" + leftThumbIndex) ;
             }
         });
+
+        final EditText rightIndexValue = (EditText) findViewById(R.id.rightValueIndex);
+        Button refreshButton = (Button) findViewById(R.id.refreshButton);
+
+        // Sets the indices themselves upon input from the user
+        refreshButton.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+
+                // Gets the String values of all the texts
+                String rightIndex = rightIndexValue.getText().toString();
+
+                // Catches any IllegalArgumentExceptions; if fails, should throw
+                // a dialog warning the user
+                try {
+                    if (!rightIndex.isEmpty()) {
+                        verticalRangeBar.setFirstTouchEvent(true);
+                        int rightIntIndex = Integer.parseInt(rightIndex);
+                        verticalRangeBar.setThumbIndices(0, rightIntIndex);
+                    }
+                } catch (IllegalArgumentException e) {
+
+                }
+            }
+        });
+
+
+        verticalRangeBar.setFirstTouchEvent(true);
+        int rightIntIndex = Integer.parseInt("4");
+        verticalRangeBar.setThumbIndices(0, rightIntIndex);
+
+
 
     }
 

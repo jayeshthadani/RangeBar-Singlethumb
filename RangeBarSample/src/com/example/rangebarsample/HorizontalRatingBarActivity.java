@@ -77,6 +77,12 @@ public class HorizontalRatingBarActivity extends Activity {
     }
 
     @Override
+    protected void onPostResume() {
+        super.onPostResume();
+        rangebar.setThumbIndices(0, 5);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
@@ -86,6 +92,9 @@ public class HorizontalRatingBarActivity extends Activity {
 
         // Gets the RangeBar
         rangebar = (RangeBar) findViewById(R.id.rangebar1);
+
+
+
 
         // Setting Index Values -------------------------------
 
