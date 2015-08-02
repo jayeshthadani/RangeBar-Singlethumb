@@ -42,6 +42,7 @@
             android:layout_marginStart="10dp"
             android:layout_marginTop="10dp"
             custom:tickCount="11"
+            custom:tickMarkStep="1"
             custom:tickHeight="0dp" />
 
     </LinearLayout>
