@@ -73,12 +73,14 @@ public class VerticalRatingBarActivity extends Activity {
         verticalRangeBar.setOnRangeBarChangeListener(new VerticalRangeBar.OnRangeBarChangeListener() {
             @Override
             public void onIndexChangeListener(VerticalRangeBar v, int leftThumbIndex, int rightThumbIndex) {
-                Log.i(VerticalRatingBarActivity.class.getName(), "right: " + rightThumbIndex + " left:" + leftThumbIndex) ;
+                //Log.i(VerticalRatingBarActivity.class.getName(), "right: " + rightThumbIndex + " left:" + leftThumbIndex) ;
             }
         });
 
         final EditText rightIndexValue = (EditText) findViewById(R.id.rightValueIndex);
         Button refreshButton = (Button) findViewById(R.id.refreshButton);
+        rightIndexValue.setVisibility(View.INVISIBLE);
+        refreshButton.setVisibility(View.INVISIBLE);
 
         // Sets the indices themselves upon input from the user
         refreshButton.setOnClickListener(new View.OnClickListener() {
@@ -105,9 +107,6 @@ public class VerticalRatingBarActivity extends Activity {
         verticalRangeBar.setFirstTouchEvent(true);
         int rightIntIndex = Integer.parseInt("4");
         verticalRangeBar.setThumbIndices(0, rightIntIndex);
-
-
-
     }
 
     @Override

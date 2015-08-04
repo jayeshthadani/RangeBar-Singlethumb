@@ -375,19 +375,11 @@ public class VerticalRangeBar  extends View  {
                 releaseThumb(mRightThumb);
             }
 
-            // Get the updated nearest tick marks for each thumb.
-            //final int newLeftIndex = mVerticalBar.getNearestTickIndex(mLeftThumb);
             final int newRightIndex = mVerticalBar.getNearestTickIndex(mRightThumb);
-            Log.i(VerticalRangeBar.class.getName(), "newRightIndex: " + newRightIndex);
-            // If either of the indices have changed, update and call the listener.
-            if (newRightIndex != mRightIndex) {
+            mRightIndex = mTickCount - 1 - newRightIndex;
 
-                //mLeftIndex = newLeftIndex;
-                mRightIndex = mTickCount - 1 - newRightIndex;
-
-                if (mListener != null) {
-                    mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
-                }
+            if (mListener != null) {
+                mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
             }
         }
     }
@@ -401,11 +393,7 @@ public class VerticalRangeBar  extends View  {
      */
     private void onActionDown(float x, float y) {
 
-        if (!mLeftThumb.isPressed() && mLeftThumb.isInTargetZone(x, y)) {
-
-            pressThumb(mLeftThumb);
-
-        } else if (!mLeftThumb.isPressed() && mRightThumb.isInTargetZone(x,y)) {
+        if (mRightThumb.isInTargetZone(x, y)){
             pressThumb(mRightThumb);
         }
     }
@@ -440,16 +428,11 @@ public class VerticalRangeBar  extends View  {
         //final int newLeftIndex = mVerticalBar.getNearestTickIndex(mLeftThumb);
         final int newRightIndex = mVerticalBar.getNearestTickIndex(mRightThumb);
 
-        // If either of the indices have changed, update and call the listener.
-        if (newRightIndex != mRightIndex) {
-
-            //mLeftIndex = newLeftIndex;
             mRightIndex = mTickCount - 1 - newRightIndex ;
 
             if (mListener != null) {
                 mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
             }
-        }
     }
 
 

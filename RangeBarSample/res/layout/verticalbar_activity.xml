@@ -25,27 +25,42 @@
     </LinearLayout>
 
 
-    <LinearLayout
-        android:layout_weight="1"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/white"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_weight="2"
+        android:gravity="center">
 
-        <com.edmodo.rangebar.VerticalRangeBar xmlns:android="http://schemas.android.com/apk/res/android"
-            xmlns:custom="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/verticalRangeBar"
+
+        <TextView
+            android:id="@+id/maxLabel"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="10dp"
-            android:layout_marginStart="10dp"
-            android:layout_marginTop="10dp"
-            custom:tickCount="11"
-            custom:tickMarkStep="1"
-            custom:tickHeight="0dp" />
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:text="Your applictation is upto mark. Best" />
 
-    </LinearLayout>
+
+        <TextView
+            android:id="@+id/minLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:gravity="center"
+            android:text="Your applictation is upto mark. Best" />
+
+        <com.edmodo.rangebar.VerticalRangeBar xmlns:custom="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/verticalRangeBar"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@id/minLabel"
+            android:layout_below="@id/maxLabel"
+            android:layout_weight="1"
+            custom:tickHeight="0dp"
+            custom:tickCount="11"
+            android:layout_centerInParent="true" />
+
+    </RelativeLayout>
 
 
 </LinearLayout>
