@@ -103,6 +103,18 @@ public class VerticalRatingBarActivity extends Activity {
             }
         });
 
+        Button clearButton = (Button) findViewById(R.id.clearButton);
+
+
+        clearButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                verticalRangeBar.setThumbIndices(0, 0);
+                verticalRangeBar.setFirstTouchEvent(false);
+                verticalRangeBar.invalidate();
+            }
+        });
+
 
         verticalRangeBar.setFirstTouchEvent(true);
         int rightIntIndex = Integer.parseInt("4");

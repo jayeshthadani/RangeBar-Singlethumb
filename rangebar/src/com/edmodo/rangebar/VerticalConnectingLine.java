@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Canvas;
 import android.graphics.Paint;
+import android.util.Log;
 import android.util.TypedValue;
 
 /**
@@ -47,8 +48,7 @@ public class VerticalConnectingLine {
      * @param rightThumb the right thumb
      */
     void draw(Canvas canvas, Thumb leftThumb, Thumb rightThumb) {
-        canvas.drawLine(mX, leftThumb.getY() , mX, rightThumb.getY(), mPaint);
+        canvas.drawLine(mX, leftThumb.getY(), mX, rightThumb.getY(), mPaint);
     }
-
 
 }

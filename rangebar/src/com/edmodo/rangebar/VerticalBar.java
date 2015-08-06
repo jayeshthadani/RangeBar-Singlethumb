@@ -91,8 +91,8 @@ class VerticalBar {
             if (i == 0 ){
                 tickStartX = mTickStartX - 40;
                 tickEndX = mTickEndX + 40;
-                canvas.drawText(String.valueOf(i * mTickMarkStep) , tickEndX + 20, y , paint);
-            }else{
+                canvas.drawText(String.valueOf(i * mTickMarkStep) , tickEndX + 10, y + 10, paint);
+            } else{
                 tickStartX = mTickStartX;
                 tickEndX = mTickEndX;
                 if(i % mTickMarkStep == 0){
@@ -112,7 +112,7 @@ class VerticalBar {
         // drawLine on BottomY -- end line
         canvas.drawLine(mTickStartX -40, mBottomY , mTickEndX + 40, mBottomY, mPaint);
 
-        canvas.drawText(String.valueOf(mNumSegments ), mTickEndX + 50, mTopY + 30, paint);
+        canvas.drawText(String.valueOf(mNumSegments ), mTickEndX + 50, mTopY + 10, paint);
     }
 
     /**

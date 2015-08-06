@@ -60,7 +60,7 @@ public class VerticalRangeBar  extends View  {
     private int mRightIndex = mTickCount - 1;
 
 
-    private int mDefaultWidth = 200;
+    private int mDefaultWidth = 250;
     private int mDefaultHeight = 400;
 
 
@@ -279,18 +279,20 @@ public class VerticalRangeBar  extends View  {
 
         // Create the underlying bar.
         final float marginBottom = getMarginBottom();
-        final float barLength = getBarLength();
-        mVerticalBar = new VerticalBar(ctx, marginBottom, xPos, barLength, mTickCount, mTickHeightDP, mBarWeight, mBarColor, mTickMarkStep);
+        final float barLength = getBarLength() - 10;
+        mVerticalBar = new VerticalBar(ctx, marginBottom + getWidth()/4, xPos, barLength, mTickCount, mTickHeightDP, mBarWeight, mBarColor, mTickMarkStep);
 
         // Initialize thumbs to the desired indices
-        mLeftThumb.setY(marginBottom + barLength);
+        mLeftThumb.setY(xPos + barLength );
+        mLeftThumb.setX(marginBottom + getWidth()/4);
 
 
         //mRightThumb.setY(marginBottom + barLength);
-        mRightThumb.setY(marginBottom + barLength - (mRightIndex / (float) (mTickCount - 1)) * barLength);
+        mRightThumb.setX(marginBottom + getWidth() / 4);
+        mRightThumb.setY(marginBottom  + barLength - (mRightIndex / (float) (mTickCount - 1)) * barLength);
 
         // Create the line connecting the two thumbs.
-        mConnectingLine = new VerticalConnectingLine(ctx, marginBottom, mConnectingLineWeight, mConnectingLineColor);
+        mConnectingLine = new VerticalConnectingLine(ctx, marginBottom + getWidth()/4, mConnectingLineWeight, mConnectingLineColor);
     }
 
     public boolean isFirstTouchEvent() {
@@ -309,6 +311,7 @@ public class VerticalRangeBar  extends View  {
         super.onDraw(canvas);
         mVerticalBar.draw(canvas);
 
+        //setFirstTouchEvent(true);
         if (isFirstTouchEvent()){
             mConnectingLine.draw(canvas, mLeftThumb, mRightThumb);
 
@@ -528,13 +531,22 @@ public class VerticalRangeBar  extends View  {
 //                               mThumbRadiusDP,
 //                               mThumbImageNormal,
 //                               mThumbImagePressed);
+        final float xPos =  mDefaultWidth /4f;
         mRightThumb = new Thumb(ctx,
-                getWidth()/2f,
+                xPos,
                 mThumbColorNormal,
                 mThumbColorPressed,
                 mThumbRadiusDP,
                 mThumbImageNormal,
                 mThumbImagePressed);
+
+//        mRightThumb = new Thumb(ctx,
+//                getWidth()/2f,
+//                mThumbColorNormal,
+//                mThumbColorPressed,
+//                mThumbRadiusDP,
+//                mThumbImageNormal,
+//                mThumbImagePressed);
 
         final float marginBottom = getMarginBottom();
         final float barLength = getBarLength();
@@ -543,6 +555,8 @@ public class VerticalRangeBar  extends View  {
         //mLeftThumb.setX(marginLeft + (mLeftIndex / (float) (mTickCount - 1)) * barLength);
 
         mRightThumb.setY(marginBottom + barLength - (mRightIndex / (float) (mTickCount - 1)) * barLength);
+        mRightThumb.setX(marginBottom + getWidth() / 4);
+
         invalidate();
     }
 
