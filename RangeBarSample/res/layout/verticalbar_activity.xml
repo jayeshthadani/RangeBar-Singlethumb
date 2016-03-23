@@ -60,11 +60,12 @@
             android:id="@+id/verticalRangeBar"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:paddingRight="10dp"
             android:layout_above="@id/minLabel"
             android:layout_below="@id/maxLabel"
             android:layout_weight="1"
             custom:tickHeight="0dp"
-            custom:tickCount="11"
+            custom:tickCount="101"
             android:layout_centerHorizontal="true" />
 
     </RelativeLayout>

@@ -753,8 +753,10 @@ public class RangeBar extends View {
 //		}
 
        if (mRightThumb.isPressed()) {
-
-			releaseThumb(mRightThumb);
+           releaseThumb(mRightThumb);
+           if (mListener != null) {
+               mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
+           }
 		} else {
 
 			float leftThumbXDistance = Math.abs(mLeftThumb.getX() - x);
@@ -774,6 +776,9 @@ public class RangeBar extends View {
                // Do nothing.
                mRightThumb.setX(mBar.getLeftX());
                releaseThumb(mRightThumb);
+               if (mListener != null) {
+                   mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
+               }
            }else if ( x > mBar.getRightX()){
                mRightThumb.setX(mBar.getRightX());
                releaseThumb(mRightThumb);
@@ -788,15 +793,14 @@ public class RangeBar extends View {
 
 	        // If either of the indices have changed, update and call the listener.
 	        if (newLeftIndex != mLeftIndex || newRightIndex != mRightIndex) {
-
 	            //mLeftIndex = newLeftIndex;
 	            mRightIndex = newRightIndex;
-
-	            if (mListener != null) {
-	                mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
-	            }
+                if (mListener != null) {
+                    mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
+                }
 	        }
 		}
+
 	}
 
     /**
