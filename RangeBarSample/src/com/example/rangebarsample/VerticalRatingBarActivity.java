@@ -65,7 +65,7 @@ public class VerticalRatingBarActivity extends Activity {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.verticalbar_activity);
         verticalRangeBar = (VerticalRangeBar) findViewById(R.id.verticalRangeBar);
-        verticalRangeBar.setTickMarkStep(1);
+        verticalRangeBar.setTickMarkStep(10);
 
         verticalRangeBar.setBarColor(this.getResources().getColor(R.color.seekbar_progress_color));
 
@@ -73,7 +73,7 @@ public class VerticalRatingBarActivity extends Activity {
         verticalRangeBar.setOnRangeBarChangeListener(new VerticalRangeBar.OnRangeBarChangeListener() {
             @Override
             public void onIndexChangeListener(VerticalRangeBar v, int leftThumbIndex, int rightThumbIndex) {
-                //Log.i(VerticalRatingBarActivity.class.getName(), "right: " + rightThumbIndex + " left:" + leftThumbIndex) ;
+                Log.i(VerticalRatingBarActivity.class.getName(), "right: " + rightThumbIndex + " left:" + leftThumbIndex) ;
             }
         });
 
@@ -118,7 +118,7 @@ public class VerticalRatingBarActivity extends Activity {
 
         verticalRangeBar.setFirstTouchEvent(true);
         int rightIntIndex = Integer.parseInt("4");
-        verticalRangeBar.setThumbIndices(0, rightIntIndex);
+        //verticalRangeBar.setThumbIndices(0, rightIntIndex);
     }
 
     @Override

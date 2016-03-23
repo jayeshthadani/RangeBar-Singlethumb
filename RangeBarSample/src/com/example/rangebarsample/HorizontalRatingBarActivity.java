@@ -4,6 +4,7 @@ package com.example.rangebarsample;
 import android.app.Activity;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,7 +80,6 @@ public class HorizontalRatingBarActivity extends Activity {
     @Override
     protected void onPostResume() {
         super.onPostResume();
-        rangebar.setThumbIndices(0, 5);
     }
 
     @Override
@@ -92,7 +92,12 @@ public class HorizontalRatingBarActivity extends Activity {
 
         // Gets the RangeBar
         rangebar = (RangeBar) findViewById(R.id.rangebar1);
-
+        rangebar.setOnRangeBarChangeListener(new RangeBar.OnRangeBarChangeListener() {
+            @Override
+            public void onIndexChangeListener(RangeBar rangeBar, int leftThumbIndex, int rightThumbIndex) {
+                Log.i(HorizontalRatingBarActivity.class.getName(), "right: " + rightThumbIndex + " left:" + leftThumbIndex) ;
+            }
+        });
 
 
 

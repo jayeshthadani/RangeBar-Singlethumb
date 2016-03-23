@@ -363,9 +363,10 @@ public class VerticalRangeBar  extends View  {
 
         if (mRightThumb.isPressed()) {
             releaseThumb(mRightThumb);
+            if (mListener != null) {
+                mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
+            }
         } else {
-
-
             if (y < mVerticalBar.getTopY()) {
                 // Do nothing.
                 mRightThumb.setY(mVerticalBar.getTopY());
@@ -380,11 +381,14 @@ public class VerticalRangeBar  extends View  {
 
             final int newRightIndex = mVerticalBar.getNearestTickIndex(mRightThumb);
             mRightIndex = mTickCount - 1 - newRightIndex;
-
-            if (mListener != null) {
-                mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
+            if (mRightIndex != newRightIndex){
+                if (mListener != null) {
+                    mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
+                }
             }
         }
+
+
     }
 
 

@@ -112,7 +112,7 @@ class VerticalBar {
         // drawLine on BottomY -- end line
         canvas.drawLine(mTickStartX -40, mBottomY , mTickEndX + 40, mBottomY, mPaint);
 
-        canvas.drawText(String.valueOf(mNumSegments ), mTickEndX + 50, mTopY + 10, paint);
+        canvas.drawText(String.valueOf(mNumSegments ), mTickEndX + 40, mTopY + 10, paint);
     }
 
     /**
