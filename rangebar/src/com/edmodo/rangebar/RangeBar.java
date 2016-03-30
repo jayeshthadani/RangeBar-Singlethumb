@@ -752,6 +752,7 @@ public class RangeBar extends View {
 //
 //		}
 
+
        if (mRightThumb.isPressed()) {
            releaseThumb(mRightThumb);
            if (mListener != null) {
@@ -790,15 +791,15 @@ public class RangeBar extends View {
 	        // Get the updated nearest tick marks for each thumb.
 	        final int newLeftIndex = mBar.getNearestTickIndex(mLeftThumb);
 	        final int newRightIndex = mBar.getNearestTickIndex(mRightThumb);
-
 	        // If either of the indices have changed, update and call the listener.
-	        if (newLeftIndex != mLeftIndex || newRightIndex != mRightIndex) {
+           // removing below condition to fix CENTROS-1029
+	        //if (newLeftIndex != mLeftIndex || newRightIndex != mRightIndex) {
 	            //mLeftIndex = newLeftIndex;
 	            mRightIndex = newRightIndex;
                 if (mListener != null) {
                     mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
                 }
-	        }
+	       // }
 		}
 
 	}
