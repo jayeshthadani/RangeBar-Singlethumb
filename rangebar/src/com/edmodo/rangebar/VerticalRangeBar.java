@@ -381,11 +381,12 @@ public class VerticalRangeBar  extends View  {
 
             final int newRightIndex = mVerticalBar.getNearestTickIndex(mRightThumb);
             mRightIndex = mTickCount - 1 - newRightIndex;
-            if (mRightIndex != newRightIndex){
+            // removing below condition to fix CENTROS-1029
+            //if (mRightIndex != newRightIndex){
                 if (mListener != null) {
                     mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
                 }
-            }
+            //}
         }
 
 
