@@ -352,6 +352,12 @@ public class VerticalRangeBar  extends View  {
         }
     }
 
+    private void checkAndAlterRightIndex(){
+        if (mRightIndex < 0){
+            mRightIndex = 0;
+        }
+    }
+
     /**
      * Handles a {@link MotionEvent#ACTION_UP} or
      * {@link MotionEvent#ACTION_CANCEL} event.
@@ -364,6 +370,7 @@ public class VerticalRangeBar  extends View  {
         if (mRightThumb.isPressed()) {
             releaseThumb(mRightThumb);
             if (mListener != null) {
+                checkAndAlterRightIndex();
                 mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
             }
         } else {
@@ -384,6 +391,7 @@ public class VerticalRangeBar  extends View  {
             // removing below condition to fix CENTROS-1029
             //if (mRightIndex != newRightIndex){
                 if (mListener != null) {
+                    checkAndAlterRightIndex();
                     mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
                 }
             //}
@@ -439,6 +447,7 @@ public class VerticalRangeBar  extends View  {
             mRightIndex = mTickCount - 1 - newRightIndex ;
 
             if (mListener != null) {
+                checkAndAlterRightIndex();
                 mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
             }
     }
@@ -514,6 +523,7 @@ public class VerticalRangeBar  extends View  {
             createThumbs();
 
             if (mListener != null) {
+                checkAndAlterRightIndex();
                 mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
             }
         }
@@ -632,6 +642,7 @@ public class VerticalRangeBar  extends View  {
                 mRightIndex = mTickCount - 1;
 
                 if (mListener != null) {
+                    checkAndAlterRightIndex();
                     mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
                 }
             }
@@ -640,8 +651,11 @@ public class VerticalRangeBar  extends View  {
                 mLeftIndex = 0;
                 mRightIndex = mTickCount - 1;
 
-                if (mListener != null)
+                if (mListener != null){
+                    checkAndAlterRightIndex();
                     mListener.onIndexChangeListener(this, mLeftIndex, mRightIndex);
+                }
+
             }
 
             createBar();
