@@ -15,7 +15,10 @@ package com.edmodo.rangebar;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.LinearGradient;
 import android.graphics.Paint;
+import android.graphics.Shader;
 import android.util.TypedValue;
 
 /**
@@ -38,7 +41,7 @@ class Bar {
     private final float mTickHeight;
     private final float mTickStartY;
     private final float mTickEndY;
-
+    private final boolean isBarColorGradient;
     // Constructor /////////////////////////////////////////////////////////////
 
     Bar(Context ctx,
@@ -48,8 +51,9 @@ class Bar {
         int tickCount,
         float tickHeightDP,
         float BarWeight,
-        int BarColor) {
-
+        int BarColor,
+        boolean isBarColorGradient, int barStartColor, int barEndColor) {
+        this.isBarColorGradient = isBarColorGradient;
         mLeftX = x;
         mRightX = x + length;
         mY = y;
@@ -64,9 +68,17 @@ class Bar {
 
         // Initialize the paint.
         mPaint = new Paint();
-        mPaint.setColor(BarColor);
-        mPaint.setStrokeWidth(BarWeight);
+        if (!isBarColorGradient){
+            mPaint.setColor(BarColor);
+            mPaint.setStrokeWidth(BarWeight);
+        }else{
+            mPaint.setStrokeWidth(BarWeight);
+            mPaint.setShader(new LinearGradient(mLeftX, mY, mRightX, mRightX, ctx.getResources().getColor(R.color.mood_bar_start_color),
+                    ctx.getResources().getColor(R.color.mood_bar_end_color), Shader.TileMode.MIRROR));
+        }
         mPaint.setAntiAlias(true);
+
+
     }
 
     // Package-Private Methods /////////////////////////////////////////////////
@@ -79,7 +91,7 @@ class Bar {
      */
     void draw(Canvas canvas) {
 
-        canvas.drawLine(mLeftX, mY, mRightX, mY, mPaint);
+        canvas.drawLine(mLeftX - 300, mY, mRightX + 300 , mY, mPaint);
 
         drawTicks(canvas);
     }
@@ -158,17 +170,30 @@ class Bar {
             final float x = i * mTickDistance + mLeftX;
             float tickStartY = 0; float tickEndY = 0;
             if (i == 0 ){
-                tickStartY = mTickStartY - 40;
-                tickEndY = mTickEndY + 40;
+                tickStartY = mTickStartY ;
+                tickEndY = mTickEndY ;
             }else{
-                tickStartY = mTickStartY;
+                tickStartY = mTickStartY ;
                 tickEndY = mTickEndY;
             }
 
-            canvas.drawLine(x, tickStartY, x, tickEndY, mPaint);
+//            if (i == 0){
+//                continue;
+//            }
+
+            Paint paint = new Paint();
+            paint.setColor(Color.BLACK);
+            canvas.drawLine(x, tickStartY, x, tickEndY, paint);
         }
         // Draw final tick. We draw the final tick outside the loop to avoid any
         // rounding discrepancies.
-        canvas.drawLine(mRightX, mTickStartY -40, mRightX, mTickEndY + 40, mPaint);
+        if (!isBarColorGradient){
+            canvas.drawLine(mRightX, mTickStartY -40, mRightX, mTickEndY + 40, mPaint);
+        }else{
+            Paint paint = new Paint();
+            paint.setColor(Color.BLACK);
+            canvas.drawLine(mRightX, mTickStartY, mRightX, mTickEndY, paint);
+        }
+
     }
 }

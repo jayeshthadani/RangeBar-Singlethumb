@@ -14,6 +14,9 @@
         <attr name="thumbColorPressed" format="reference|color"/>
         <attr name="orientation" format="integer" />
         <attr name="tickMarkStep" format="integer" />
+        <attr name="barColorGradient" format="boolean" />
+        <attr name="barGradStartColor" format="integer" />
+        <attr name="barGradEndColor" format="integer" />
     </declare-styleable>
 
 </resources>

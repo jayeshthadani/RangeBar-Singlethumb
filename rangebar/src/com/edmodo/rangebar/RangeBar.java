@@ -47,9 +47,10 @@ public class RangeBar extends View {
     private static final float DEFAULT_BAR_WEIGHT_PX = 2;
     private static final int DEFAULT_BAR_COLOR = Color.LTGRAY;
     private static final float DEFAULT_CONNECTING_LINE_WEIGHT_PX = 4;
-    private static final int DEFAULT_THUMB_IMAGE_NORMAL = R.drawable.seek_thumb_normal;
-    private static final int DEFAULT_THUMB_IMAGE_PRESSED = R.drawable.seek_thumb_pressed;
+    private static final int DEFAULT_THUMB_IMAGE_NORMAL = R.drawable.vital_mood_thumb;
+    private static final int DEFAULT_THUMB_IMAGE_PRESSED = R.drawable.vital_mood_thumb;
     private static final int DEFAULT_BAR_ORIENTATION = 0;
+    private static final int DEFAULT_BAR_GRAD_COLOR = 0;
     // O FOR HORIZONTAL, 1 FOR VERTICAL
 
     // Corresponds to android.R.color.holo_blue_light.
@@ -65,6 +66,9 @@ public class RangeBar extends View {
     private float mTickHeightDP = DEFAULT_TICK_HEIGHT_DP;
     private float mBarWeight = DEFAULT_BAR_WEIGHT_PX;
     private int mBarColor = DEFAULT_BAR_COLOR;
+    private boolean mBarColorGradientAllowed = false;
+    private int barGradStartColor = DEFAULT_BAR_GRAD_COLOR;
+    private int barGradEndColor = DEFAULT_BAR_GRAD_COLOR;
     private float mConnectingLineWeight = DEFAULT_CONNECTING_LINE_WEIGHT_PX;
     private int mConnectingLineColor = DEFAULT_CONNECTING_LINE_COLOR;
     private int mThumbImageNormal = DEFAULT_THUMB_IMAGE_NORMAL;
@@ -243,7 +247,7 @@ public class RangeBar extends View {
         // Create the underlying bar.
         final float marginLeft = mRightThumb.getHalfWidth();
         final float barLength = w - 2 * marginLeft;
-        mBar = new Bar(ctx, marginLeft, yPos, barLength, mTickCount, mTickHeightDP, mBarWeight, mBarColor);
+        mBar = new Bar(ctx, marginLeft, yPos, barLength, mTickCount, mTickHeightDP, mBarWeight, mBarColor, mBarColorGradientAllowed, barGradStartColor, barGradEndColor);
 
         // Initialize thumbs to the desired indices
         mLeftThumb.setX(marginLeft + (mLeftIndex / (float) (mTickCount - 1)) * barLength);
@@ -282,7 +286,7 @@ public class RangeBar extends View {
     protected void onDraw(Canvas canvas) {
 
         super.onDraw(canvas);
-        Log.i(RangeBar.class.getName(), "onDraw");
+        //Log.i(RangeBar.class.getName(), "onDraw");
         mBar.draw(canvas);
 
         if (isFirstTouchEvent()){
@@ -409,6 +413,10 @@ public class RangeBar extends View {
         createBar();
     }
 
+    public void setmBarColorGradientAllowed(boolean isBarColorGradient){
+        this.mBarColorGradientAllowed = isBarColorGradient;
+
+    }
     /**
      * Set the weight of the connecting line between the thumbs.
      * 
@@ -418,7 +426,7 @@ public class RangeBar extends View {
     public void setConnectingLineWeight(float connectingLineWeight) {
 
         mConnectingLineWeight = connectingLineWeight;
-        createConnectingLine();
+        //createConnectingLine();
     }
 
     /**
@@ -430,7 +438,7 @@ public class RangeBar extends View {
     public void setConnectingLineColor(int connectingLineColor) {
 
         mConnectingLineColor = connectingLineColor;
-        createConnectingLine();
+        //createConnectingLine();
     }
 
     /**
@@ -584,6 +592,9 @@ public class RangeBar extends View {
             mTickHeightDP = ta.getDimension(R.styleable.RangeBar_tickHeight, DEFAULT_TICK_HEIGHT_DP);
             mBarWeight = ta.getDimension(R.styleable.RangeBar_barWeight, DEFAULT_BAR_WEIGHT_PX);
             mBarColor = ta.getColor(R.styleable.RangeBar_barColor, DEFAULT_BAR_COLOR);
+            mBarColorGradientAllowed = ta.getBoolean(R.styleable.RangeBar_barColorGradient, false);
+            barGradStartColor = ta.getInt(R.styleable.RangeBar_barGradStartColor, DEFAULT_BAR_GRAD_COLOR);
+            barGradEndColor = ta.getInt(R.styleable.RangeBar_barGradEndColor, DEFAULT_BAR_GRAD_COLOR);
             mConnectingLineWeight = ta.getDimension(R.styleable.RangeBar_connectingLineWeight,
                                                     DEFAULT_CONNECTING_LINE_WEIGHT_PX);
             mConnectingLineColor = ta.getColor(R.styleable.RangeBar_connectingLineColor,
@@ -617,7 +628,9 @@ public class RangeBar extends View {
                        mTickCount,
                        mTickHeightDP,
                        mBarWeight,
-                       mBarColor);
+                       mBarColor,
+                mBarColorGradientAllowed,
+                barGradStartColor, barGradEndColor);
 
         invalidate();
     }
@@ -706,7 +719,7 @@ public class RangeBar extends View {
     private boolean indexOutOfRange(int leftThumbIndex, int rightThumbIndex) {
         return (leftThumbIndex < 0 || leftThumbIndex >= mTickCount
                 || rightThumbIndex < 0
-                || rightThumbIndex >= mTickCount);
+                || rightThumbIndex > mTickCount);
     }
 
     /**

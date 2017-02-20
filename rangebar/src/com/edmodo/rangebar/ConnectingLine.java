@@ -60,6 +60,6 @@ class ConnectingLine {
      * @param rightThumb the right thumb
      */
     void draw(Canvas canvas, Thumb leftThumb, Thumb rightThumb) {
-        canvas.drawLine(leftThumb.getX(), mY, rightThumb.getX(), mY, mPaint);
+        //canvas.drawLine(leftThumb.getX(), mY, rightThumb.getX(), mY, mPaint);
     }
 }

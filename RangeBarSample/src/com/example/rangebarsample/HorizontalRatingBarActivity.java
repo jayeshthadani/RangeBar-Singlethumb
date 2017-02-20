@@ -100,7 +100,6 @@ public class HorizontalRatingBarActivity extends Activity {
         });
 
 
-
         // Setting Index Values -------------------------------
 
         // Gets the index value TextViews
